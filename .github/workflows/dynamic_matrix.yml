@@ -12,12 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: "touch foo bar biz"
-      - run: |
-        ls -ltr
-        FILES=$(ls)
-        FILES_ARRAY=($FILES)
-        FILES_JSON=$(echo "${FILES_ARRAY[@]}" | jq -R -s -c 'split(" ")')
-        echo "::set-output name=files_json::${FILES_JSON}"
+      - name: run
+        run: |
+          ls -ltr
+          FILES=$(ls)
+          FILES_ARRAY=($FILES)
+          FILES_JSON=$(echo "${FILES_ARRAY[@]}" | jq -R -s -c 'split(" ")')
+          echo "::set-output name=files_json::${FILES_JSON}"
   dynamic-matrix:
     needs: job1
     runs-on: ubuntu-latest
