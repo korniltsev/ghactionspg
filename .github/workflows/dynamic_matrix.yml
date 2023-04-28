@@ -8,9 +8,22 @@ on:
     branches: [main]
 
 jobs:
-  dynamic-matrix:
+  generate-matrix:
     runs-on: ubuntu-latest
     steps:
       - run: "touch foo bar biz"
-      - run: "ls -ltr foo bar biz"
-      - run: "jq --help"
+      - run: |
+        FILES=$(LS)
+        FILES_ARRAY=($FILES)
+        FILES_JSON=$(echo "${FILES_ARRAY[@]}" | jq -R -s -c 'split(" ")')
+        echo "::set-output name=files_json::${FILES_JSON}"
+  dynamic-matrix:
+    needs: job1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        file: ${{ fromJson(needs.generate-matrix.outputs.files_json) }}
+    steps:
+      - name: Show file
+        run: echo "File: ${{ matrix.file }}"
+      
