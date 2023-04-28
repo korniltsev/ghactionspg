@@ -27,5 +27,5 @@ jobs:
         file: ${{ fromJson(needs.generate-matrix.outputs.files_json) }}
     steps:
       - name: Show file
-        run: echo "File: ${{ matrix.file }}"
+        run: echo ${{ matrix.file }}
       
