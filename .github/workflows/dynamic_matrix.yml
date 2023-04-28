@@ -13,6 +13,7 @@ jobs:
     steps:
       - run: "touch foo bar biz"
       - run: |
+        ls -ltr
         FILES=$(ls)
         FILES_ARRAY=($FILES)
         FILES_JSON=$(echo "${FILES_ARRAY[@]}" | jq -R -s -c 'split(" ")')
