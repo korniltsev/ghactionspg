@@ -17,8 +17,8 @@ jobs:
       - id: list-files
         run: |
           
-          
-          FILES_JSON=$(echo "${($(ls))[@]}" | jq -R -s -c 'split(" ")')
+          FILES_ARRAY=($(ls))
+          FILES_JSON=$(echo "${FILES_ARRAY[@]}" | jq -R -s -c 'split(" ")')
           echo "files_json=${FILES_JSON}" >> $GITHUB_OUTPUT
   dynamic-matrix:
     needs: generate-matrix
