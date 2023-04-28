@@ -13,4 +13,4 @@ jobs:
     steps:
       - run: "touch foo bar biz"
       - run: "ls -ltr foo bar biz"
-      - run: "jq"
+      - run: "jq --help"
