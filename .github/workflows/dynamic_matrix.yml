@@ -10,9 +10,11 @@ on:
 jobs:
   generate-matrix:
     runs-on: ubuntu-latest
+    outputs:
+      files_json: ${{ steps.list-files.outputs.files_json }}
     steps:
       - run: "touch foo bar biz"
-      - name: run
+      - id: list-files
         run: |
           ls -ltr
           FILES=$(ls)
